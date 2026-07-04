@@ -328,6 +328,11 @@ section[id] { scroll-margin-top: 92px; }
 .vhero__cta:hover { background: var(--lime); color: var(--ink); transform: translateY(-2px); }
 
 /* Nav lisible (texte blanc) par-dessus le hero vidéo, avant scroll */
+body.has-vhero .nav:not(.is-scrolled) {
+  background: linear-gradient(180deg, rgba(8, 12, 10, 0.72) 0%, rgba(8, 12, 10, 0.45) 60%, rgba(8, 12, 10, 0) 100%);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
 body.has-vhero .nav:not(.is-scrolled) .brand,
 body.has-vhero .nav:not(.is-scrolled) .brand__word,
 body.has-vhero .nav:not(.is-scrolled) .nav__links > a,
