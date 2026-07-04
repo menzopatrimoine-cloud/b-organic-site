@@ -30,6 +30,34 @@
     revealEls.forEach(function (el) { io.observe(el); });
   }
 
+  /* ---- Vidéos d'ambiance : lecture continue garantie ----
+     Certains navigateurs bloquent l'autoplay ou mettent la vidéo en
+     pause (économie d'énergie, onglet en arrière-plan). On relance. */
+  var videos = document.querySelectorAll("video[autoplay]");
+  function playAll() {
+    videos.forEach(function (v) {
+      v.muted = true;
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+    });
+  }
+  playAll();
+  document.addEventListener("touchstart", playAll, { once: true, passive: true });
+  document.addEventListener("click", playAll, { once: true });
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden) playAll();
+  });
+  videos.forEach(function (v) {
+    v.addEventListener("pause", function () {
+      if (!v.ended) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    });
+    v.addEventListener("ended", function () {
+      v.currentTime = 0;
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+    });
+  });
+
   /* ---- Nav : ombre / fond au scroll ---- */
   var nav = document.getElementById("nav");
   var ticking = false;
