@@ -57,6 +57,33 @@
       if (p && p.catch) p.catch(function () {});
     });
   });
+  if ("IntersectionObserver" in window && videos.length) {
+    var vio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var p = entry.target.play();
+          if (p && p.catch) p.catch(function () {});
+        }
+      });
+    }, { threshold: 0.15 });
+    videos.forEach(function (v) { vio.observe(v); });
+  }
+
+  /* ---- Menu mobile (burger) ---- */
+  var burger = document.querySelector(".nav__burger");
+  var mobileMenu = document.querySelector(".mobile-menu");
+  if (burger && mobileMenu) {
+    burger.addEventListener("click", function () {
+      var open = document.body.classList.toggle("menu-open");
+      burger.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+    mobileMenu.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        document.body.classList.remove("menu-open");
+        burger.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
 
   /* ---- Nav : ombre / fond au scroll ---- */
   var nav = document.getElementById("nav");
