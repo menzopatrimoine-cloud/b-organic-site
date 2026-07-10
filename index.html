@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,500;1,600&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=8" />
+  <link rel="stylesheet" href="style.css?v=9" />
   <link rel="canonical" href="https://b-organic.fr/" />
   <meta property="og:url" content="https://b-organic.fr/" />
   <meta property="og:image" content="https://b-organic.fr/assets/img/hero-seed.jpg" />
@@ -41,7 +41,7 @@
   </script>
   <script defer src="https://cloud.umami.is/script.js" data-website-id="16859b6a-3b06-4bcc-b898-7da82ac47e55"></script>
 </head>
-<body>
+<body class="has-vhero">
 
   <!-- ============ NAV ============ -->
   <header class="nav" id="nav">
@@ -86,28 +86,22 @@
 
   <main>
 
-    <!-- ============ HERO ============ -->
-    <section class="hero" id="top">
-      <svg class="hero__orbits" viewBox="0 0 760 760" aria-hidden="true">
-        <g class="spin">
-          <circle cx="380" cy="380" r="92" />
-          <circle class="dash" cx="380" cy="380" r="162" />
-          <circle cx="380" cy="380" r="232" />
-          <circle class="dash" cx="380" cy="380" r="302" />
-          <circle cx="380" cy="380" r="372" />
-          <circle class="hero__seed" cx="380" cy="188" r="5.5" />
-        </g>
-      </svg>
+    <!-- ============ HERO VIDÉO ============ -->
+    <section class="hero hero--video" id="top">
+      <video class="hero__video" autoplay muted loop playsinline preload="auto" poster="assets/img/hero-seed.jpg" aria-hidden="true">
+        <source src="assets/video/plante-pousse.mp4" type="video/mp4" />
+      </video>
+      <div class="hero__scrim" aria-hidden="true"></div>
       <div class="hero__inner">
-        <p class="eyebrow">Gestion de patrimoine · Investissement durable · Cabinet indépendant</p>
+        <p class="eyebrow eyebrow--on-dark">Gestion de patrimoine · Investissement durable · Cabinet indépendant</p>
         <h1 class="hero__title">Un patrimoine se cultive.<br />Le vôtre peut pousser<br /><span class="accent">durablement.</span></h1>
         <p class="hero__lede">
           Cabinet indépendant pour particuliers, indépendants et chefs d'entreprise.
           Une conviction : performance et investissement responsable ne s'opposent pas.
         </p>
         <div class="hero__actions">
-          <a href="#rdv" class="btn btn--ghost">Demander un premier échange</a>
-          <a href="solutions.html" class="btn btn--line">Découvrir les solutions</a>
+          <a href="#rdv" class="btn vhero__cta">Demander un premier échange</a>
+          <a href="solutions.html" class="btn btn--on-video">Découvrir les solutions</a>
         </div>
       </div>
     </section>
@@ -119,26 +113,14 @@
       <span>Immatriculé ORIAS</span>
     </div>
 
-    <!-- ============ BANDEAU AMBIANCE (image animée) ============ -->
-    <section class="banner" aria-label="Investissement durable">
-      <video class="banner__video" autoplay muted loop playsinline preload="auto" poster="assets/img/hero-seed.jpg" aria-hidden="true">
-        <source src="assets/video/plante-pousse.mp4" type="video/mp4" />
-      </video>
-      <div class="banner__scrim" aria-hidden="true"></div>
-      <span class="banner__particles" aria-hidden="true"></span>
-      <div class="banner__content reveal" data-reveal>
-        <p class="eyebrow eyebrow--on-dark">Investissement durable</p>
-        <p class="banner__line">Un capital qui <em>prend racine</em>, une performance qui s'inscrit dans la durée.</p>
-      </div>
-    </section>
-
     <!-- ============ VOS PROJETS ============ -->
     <section class="section" id="projets">
       <div class="wrap">
         <p class="eyebrow reveal" data-reveal>Vos projets</p>
         <h2 class="section__title reveal" data-reveal>Tout commence par un projet,<br />pas par un produit</h2>
         <p class="section__lede reveal" data-reveal>
-          Vous n'avez pas besoin d'un produit en particulier. Vous avez besoin
+          Vous voulez investir dans du concret, du <span class="accent" style="font-weight:600;">durable</span>, utile à l'environnement ?
+          Vous n'avez pas besoin d'un produit en particulier : vous avez besoin
           d'acheter, de protéger, de transmettre, de respirer fiscalement. Mon rôle :
           transformer ce projet en plan d'action concret, et le mener avec vous jusqu'au bout.
         </p>

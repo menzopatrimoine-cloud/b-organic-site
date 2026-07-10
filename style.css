@@ -281,6 +281,32 @@ body.menu-open .nav .nav__cta { border-color: #d8d3c6; }
 .hero__seed { fill: var(--lime); stroke: none; }
 @keyframes orbit-spin { to { transform: rotate(360deg); } }
 
+/* ---- Hero vidéo (accueil) ---- */
+.hero--video {
+  min-height: clamp(560px, 88vh, 840px);
+  padding: clamp(122px, 17vh, 190px) 0 clamp(74px, 12vh, 120px);
+  background: #0e1512;
+  display: flex; align-items: center;
+}
+.hero--video .hero__video {
+  position: absolute; inset: 0; z-index: 0;
+  width: 100%; height: 100%; object-fit: cover;
+}
+.hero--video .hero__scrim {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(8,12,10,0.86) 0%, rgba(8,12,10,0.56) 42%, rgba(8,12,10,0.26) 72%, rgba(8,12,10,0.08) 100%),
+    linear-gradient(0deg, rgba(8,12,10,0.66) 0%, rgba(8,12,10,0) 48%);
+}
+.hero--video .hero__inner { position: relative; z-index: 2; }
+.hero--video .hero__title { color: #fff; }
+.hero--video .hero__lede { color: #eef1ee; text-shadow: 0 1px 22px rgba(0,0,0,0.45); }
+.btn--on-video {
+  padding: 15px 30px;
+  border: 1px solid rgba(255,255,255,0.6); color: #fff; background: transparent;
+}
+.btn--on-video:hover { background: #fff; color: var(--ink); border-color: #fff; transform: translateY(-2px); }
+
 /* ============================================================
    BANDEAU CRÉDENTIELS
    ============================================================ */
