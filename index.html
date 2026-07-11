@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,500;1,600&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=9" />
+  <link rel="stylesheet" href="style.css?v=11" />
   <link rel="canonical" href="https://b-organic.fr/" />
   <meta property="og:url" content="https://b-organic.fr/" />
   <meta property="og:image" content="https://b-organic.fr/assets/img/hero-seed.jpg" />
@@ -56,7 +56,6 @@
     </a>
     <nav class="nav__links" aria-label="Navigation principale">
       <a href="#projets">Vos projets</a>
-      <a href="#expertises">Expertises</a>
 
       <a href="#cabinet">Le cabinet</a>
       <a href="habilitations.html">Habilitations</a>
@@ -70,7 +69,6 @@
   <!-- ============ MENU MOBILE ============ -->
   <div class="mobile-menu" id="mobile-menu">
     <a href="#projets">Vos projets</a>
-    <a href="#expertises">Expertises</a>
     <a href="#cabinet">Le cabinet</a>
     <a href="habilitations.html">Habilitations</a>
     <a href="faq.html">Questions fréquentes</a>
@@ -113,191 +111,46 @@
       <span>Immatriculé ORIAS</span>
     </div>
 
-    <!-- ============ VOS PROJETS ============ -->
+    <!-- ============ VOS PROJETS · PÔLES ============ -->
     <section class="section" id="projets">
-      <div class="wrap">
+      <div class="wrap wrap--wide">
         <p class="eyebrow reveal" data-reveal>Vos projets</p>
         <h2 class="section__title reveal" data-reveal>Tout commence par un projet,<br />pas par un produit</h2>
         <p class="section__lede reveal" data-reveal>
           Vous voulez investir dans du concret, du <span class="accent" style="font-weight:600;">durable</span>, utile à l'environnement ?
-          Vous n'avez pas besoin d'un produit en particulier : vous avez besoin
-          d'acheter, de protéger, de transmettre, de respirer fiscalement. Mon rôle :
-          transformer ce projet en plan d'action concret, et le mener avec vous jusqu'au bout.
+          Choisissez le pôle qui vous ressemble : vous y trouverez nos réponses, nos leviers et les
+          solutions liées.
         </p>
 
-        <div class="cards">
-          <article class="card reveal" data-reveal>
-            <p class="card__tag">Projet immobilier</p>
-            <h3 class="card__title">Devenir propriétaire ou investir dans la pierre</h3>
-            <p class="card__quote">« On aimerait acheter, mais on ne sait pas combien on peut emprunter ni par où commencer. »</p>
-            <p class="card__body">
-              Je calcule votre capacité réelle d'emprunt, je négocie le financement avec mes
-              partenaires courtiers et banques, j'optimise votre assurance emprunteur (souvent
-              des milliers d'euros d'économie) et je vous accompagne jusqu'à la signature chez le notaire.
-            </p>
-            <p class="card__gain"><span>Ce que vous y gagnez :</span> un dossier solide présenté aux bonnes banques, un taux négocié, et un seul interlocuteur du premier rendez-vous aux clés.</p>
-          </article>
+        <div class="pgrid">
+          <a href="pole-impots.html" class="pcard reveal" data-reveal>
+            <img class="pcard__img" src="assets/img/pole-impots.jpg" alt="Bureau avec documents fiscaux et calculatrice" loading="lazy" />
+            <h3 class="pcard__title">Réduction d'impôt</h3>
+            <p class="pcard__body">« Mon avis d'imposition pique de plus en plus chaque année. » Payer moins, intelligemment : je fais le tri, je chiffre, vous décidez.</p>
+            <span class="pcard__go">Explorer ce pôle</span>
+          </a>
 
-          <article class="card reveal" data-reveal>
-            <p class="card__tag">Revenus complémentaires</p>
-            <h3 class="card__title">Construire des revenus qui tombent chaque mois</h3>
-            <p class="card__quote">« J'aimerais que mon argent travaille, sans devoir gérer des locataires. »</p>
-            <p class="card__body">
-              SCPI labellisées ISR à fiscalité douce, location meublée clé en main, fonds de
-              rendement responsables : je construis avec vous une machine à revenus réguliers,
-              dimensionnée à votre épargne et financée à crédit quand l'effet de levier a du sens.
-            </p>
-            <p class="card__gain"><span>Ce que vous y gagnez :</span> des loyers sans gestion locative, une fiscalité maîtrisée dès le départ, et un patrimoine qui finance la rénovation du parc immobilier plutôt que son obsolescence.</p>
-          </article>
+          <a href="pole-immobilier.html" class="pcard reveal" data-reveal>
+            <img class="pcard__img" src="assets/img/pole-immobilier.jpg" alt="Maison en pierre avec volets verts et clés" loading="lazy" />
+            <h3 class="pcard__title">Immobilier</h3>
+            <p class="pcard__body">Devenir propriétaire, investir dans la pierre, construire des revenus qui tombent chaque mois. Avec nos chasseurs de biens, à Paris et partout en France.</p>
+            <span class="pcard__go">Explorer ce pôle</span>
+          </a>
 
-          <article class="card reveal" data-reveal>
-            <p class="card__tag">Impôts</p>
-            <h3 class="card__title">Payer moins d'impôts, intelligemment</h3>
-            <p class="card__quote">« Mon avis d'imposition pique de plus en plus chaque année. »</p>
-            <p class="card__body">
-              Girardin industriel, location meublée au réel, déficit foncier, PER : il existe des
-              dispositifs puissants, à condition de choisir celui qui correspond à <em>votre</em>
-              tranche d'imposition et à <em>votre</em> horizon. Je fais le tri, je chiffre, vous décidez.
-            </p>
-            <p class="card__gain"><span>Ce que vous y gagnez :</span> une économie d'impôt chiffrée noir sur blanc avant de signer quoi que ce soit. Jamais de défiscalisation pour la défiscalisation.</p>
-          </article>
+          <a href="pole-retraite-famille.html" class="pcard reveal" data-reveal>
+            <img class="pcard__img" src="assets/img/pole-retraite-famille.jpg" alt="Mains d'un grand-parent et d'un enfant plantant une pousse" loading="lazy" />
+            <h3 class="pcard__title">Retraite &amp; Famille</h3>
+            <p class="pcard__body">Préparer une retraite confortable dès maintenant, protéger les vôtres et transmettre sereinement.</p>
+            <span class="pcard__go">Explorer ce pôle</span>
+          </a>
 
-          <article class="card reveal" data-reveal>
-            <p class="card__tag">Retraite</p>
-            <h3 class="card__title">Préparer une retraite confortable, dès maintenant</h3>
-            <p class="card__quote">« Je sais que ma pension ne suffira pas, mais je remets toujours ça à plus tard. »</p>
-            <p class="card__body">
-              Chaque année d'avance compte : c'est la magie des intérêts composés. Je construis
-              votre plan retraite étage par étage (assurance-vie, PER, immobilier), avec des
-              versements adaptés à votre budget d'aujourd'hui.
-            </p>
-            <p class="card__gain"><span>Ce que vous y gagnez :</span> un cap clair (« combien à quel âge »), des versements automatisés, et un point annuel pour ajuster sans y penser au quotidien.</p>
-          </article>
-
-          <article class="card reveal" data-reveal>
-            <p class="card__tag">Famille</p>
-            <h3 class="card__title">Protéger les vôtres et transmettre sereinement</h3>
-            <p class="card__quote">« S'il m'arrive quelque chose, est-ce que ma famille est vraiment protégée ? »</p>
-            <p class="card__body">
-              Clauses bénéficiaires optimisées, prévoyance des indépendants, anticipation de la
-              transmission : des sujets qu'on repousse, et qui changent tout le jour où on en a
-              besoin. Je les rends simples et concrets.
-            </p>
-            <p class="card__gain"><span>Ce que vous y gagnez :</span> la tranquillité d'esprit : vos proches protégés, votre transmission organisée, des droits de succession réduits légalement.</p>
-          </article>
-
-          <article class="card reveal" data-reveal>
-            <p class="card__tag">Indépendants</p>
-            <h3 class="card__title">Entrepreneur : transformer votre activité en patrimoine</h3>
-            <p class="card__quote">« Tout passe dans la boîte. Et moi, je me constitue quoi ? »</p>
-            <p class="card__body">
-              Freelances, professions libérales, dirigeants : je connais vos contraintes (revenus
-              irréguliers, protection sociale légère, fiscalité spécifique) parce que je suis
-              indépendant moi-même. On bâtit votre patrimoine personnel en parallèle de votre activité.
-            </p>
-            <p class="card__gain"><span>Ce que vous y gagnez :</span> une stratégie qui s'adapte aux bonnes et aux moins bonnes années, et une vraie protection sociale reconstruite sur mesure.</p>
-          </article>
+          <a href="pole-entrepreneur.html" class="pcard reveal" data-reveal>
+            <img class="pcard__img" src="assets/img/pole-entrepreneur.jpg" alt="Bureau d'entrepreneur avec ordinateur portable et carnet" loading="lazy" />
+            <h3 class="pcard__title">Entrepreneur</h3>
+            <p class="pcard__body">« Tout passe dans la boîte. Et moi ? » Transformer votre activité en patrimoine personnel, par un indépendant qui connaît vos contraintes.</p>
+            <span class="pcard__go">Explorer ce pôle</span>
+          </a>
         </div>
-      </div>
-    </section>
-
-    <!-- ============ EXPERTISES ============ -->
-    <section class="section section--alt" id="expertises">
-      <div class="wrap">
-        <p class="eyebrow reveal" data-reveal>Expertises</p>
-        <h2 class="section__title reveal" data-reveal>Cinq leviers, une stratégie,<br />et le durable comme <em>fil vert</em></h2>
-        <p class="section__lede reveal" data-reveal>
-          Chaque recommandation s'inscrit dans une vision d'ensemble de votre situation :
-          revenus, fiscalité, horizon, famille. Et à chaque fois qu'une alternative responsable
-          existe à performance comparable (label ISR, Greenfin, fonds classés durables),
-          c'est elle que je vous présente en premier.
-        </p>
-
-        <div class="cards">
-          <article class="card reveal" data-reveal>
-            <div class="card__tags"><span class="card__tag">Épargne</span><span class="pill">Durable</span></div>
-            <h3 class="card__title">Assurance-vie &amp; placements responsables</h3>
-            <p class="card__body">
-              Des contrats sélectionnés pour leurs frais réduits et leur profondeur de gamme,
-              y compris en fonds responsables, sans sacrifier le rendement.
-            </p>
-            <ul class="arrows">
-              <li>Fonds labellisés ISR et Greenfin, fonds classés durables (articles 8 et 9 SFDR)</li>
-              <li>ETF climat et thématiques : eau, énergies renouvelables, économie circulaire</li>
-              <li><strong>Trois profils de gestion</strong>, prudent, équilibré, dynamique, avec des objectifs de performance annuelle de <strong>4 %, 6 % et 9 %</strong>*</li>
-              <li>Audit de vos contrats existants : j'analyse les frais et les performances, et on décide ensemble s'il faut tailler… ou arracher à la racine pour replanter ailleurs</li>
-              <li>Comparatif chiffré de plusieurs contrats avant souscription</li>
-              <li>Vos préférences de durabilité formellement intégrées au conseil (exigence MiFID II)</li>
-            </ul>
-          </article>
-
-          <article class="card reveal" data-reveal>
-            <div class="card__tags"><span class="card__tag">Immobilier</span><span class="pill">Durable</span></div>
-            <h3 class="card__title">SCPI ISR &amp; pierre-papier responsable</h3>
-            <p class="card__body">
-              L'immobilier qui rapporte sans les appels à 23 h pour une fuite d'eau, et qui
-              rénove le parc plutôt que de l'épuiser. J'analyse les SCPI comme un investisseur,
-              pas comme un vendeur.
-            </p>
-            <ul class="arrows">
-              <li><strong>Objectif de performance : 7 % de TRI</strong> (taux de rendement interne)*</li>
-              <li>Priorité aux SCPI labellisées ISR : bâtiments rénovés, performance énergétique suivie</li>
-              <li>SCPI européennes : fiscalité allégée grâce aux conventions internationales</li>
-              <li>Achat en direct, à crédit, en démembrement ou via assurance-vie selon votre situation</li>
-              <li>Simulation de rendement net d'impôt avant tout engagement</li>
-            </ul>
-          </article>
-
-          <article class="card reveal" data-reveal>
-            <div class="card__tags"><span class="card__tag">Financement</span></div>
-            <h3 class="card__title">Crédit &amp; assurance emprunteur</h3>
-            <p class="card__body">
-              Le crédit est un outil patrimonial à part entière : bien négocié, il démultiplie
-              votre capacité d'investissement, y compris pour financer du durable.
-            </p>
-            <ul class="arrows">
-              <li>Recherche de financement via un réseau de courtiers et banques partenaires</li>
-              <li>Changement d'assurance emprunteur (loi Lemoine) : <strong>plusieurs milliers d'euros d'économies sur votre emprunt</strong></li>
-              <li>Montages spécifiques : prêt hypothécaire, nantissement, crédit SCPI</li>
-              <li>Financement de rénovation énergétique et d'investissements verts</li>
-            </ul>
-          </article>
-
-          <article class="card reveal" data-reveal>
-            <div class="card__tags"><span class="card__tag">Fiscalité</span><span class="pill">Utile</span></div>
-            <h3 class="card__title">Défiscalisation &amp; optimisation</h3>
-            <p class="card__body">
-              Réduire l'impôt, oui, mais jamais au prix d'un mauvais investissement. Et quand
-              l'avantage fiscal finance l'économie réelle, tout le monde y gagne.
-            </p>
-            <ul class="arrows">
-              <li>Girardin industriel : <strong>une réduction d'impôt supérieure à votre mise</strong>, qui finance l'équipement productif des Outre-mer</li>
-              <li>LMNP au réel : des loyers quasi non imposés grâce à l'amortissement</li>
-              <li>PER avec supports responsables : déduction immédiate du revenu imposable</li>
-              <li>Simulation personnalisée de votre économie d'impôt avant décision</li>
-            </ul>
-          </article>
-
-          <article class="card reveal" data-reveal>
-            <div class="card__tags"><span class="card__tag">Protection</span></div>
-            <h3 class="card__title">Prévoyance &amp; transmission</h3>
-            <p class="card__body">
-              Le pilier qu'on oublie, jusqu'au jour où il devient le plus important. Je le traite
-              en premier, pas en dernier.
-            </p>
-            <ul class="arrows">
-              <li>Audit de vos couvertures existantes : <strong>environ 20 % d'économies</strong> constatées, à garanties égales ou meilleures</li>
-              <li>Prévoyance sur mesure pour indépendants et professions libérales</li>
-              <li>Clauses bénéficiaires rédigées pour réduire les droits de succession</li>
-              <li>Transmettre un patrimoine sain : donation, démembrement, assurance-vie</li>
-            </ul>
-          </article>
-        </div>
-
-        <p class="section__lede reveal" data-reveal style="margin-top:32px;font-size:13px;color:var(--muted);">
-          *Objectifs de performance donnés à titre indicatif, non garantis. Tout investissement
-          comporte un risque de perte en capital.
-        </p>
       </div>
     </section>
 
