@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulateur d'impôt 2026 · Combien pourriez-vous économiser ? | B.organic</title>
+<meta name="description" content="Estimez votre impôt sur le revenu et votre potentiel de réduction en 2 minutes. Simulation gratuite, sans engagement. Cabinet indépendant B.organic, CIF, membre CNCEF Patrimoine.">
+<meta property="og:title" content="Combien d'impôts pourriez-vous économiser cette année ?">
+<meta property="og:description" content="Simulation gratuite en 2 minutes. Cabinet indépendant de gestion de patrimoine.">
+<meta name="theme-color" content="#ffffff">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#2f6b46; --green-dark:#245437; --green-light:#eaf3ed;
+    --ink:#1c2420; --muted:#5c6a62; --bg:#ffffff; --sand:#f7f5f0;
+    --radius:14px; --shadow:0 10px 40px rgba(28,36,32,.08);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+  h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:600;line-height:1.15}
+  em{font-style:italic}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 24px}
+  .btn{display:inline-block;background:var(--green);color:#fff;border:none;cursor:pointer;
+    padding:16px 32px;border-radius:999px;font-size:1rem;font-weight:600;font-family:'Inter',sans-serif;
+    transition:background .2s, transform .15s;text-decoration:none}
+  .btn:hover{background:var(--green-dark);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:var(--green);border:1.5px solid var(--green)}
+  .btn-ghost:hover{background:var(--green-light);color:var(--green-dark)}
+  .tag{display:inline-block;background:var(--green-light);color:var(--green-dark);
+    font-size:.8rem;font-weight:600;padding:6px 14px;border-radius:999px;letter-spacing:.02em}
+
+  /* HEADER */
+  header{padding:18px 0;border-bottom:1px solid #eee;position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);z-index:50}
+  header .wrap{display:flex;align-items:center;justify-content:space-between}
+  .logo{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:600;color:var(--ink);text-decoration:none}
+  .logo span{color:var(--green)}
+  header .btn{padding:10px 22px;font-size:.9rem}
+
+  /* HERO */
+  .hero{padding:70px 0 54px;background:linear-gradient(180deg,var(--sand) 0%,#fff 100%);text-align:center}
+  .hero h1{font-size:clamp(2rem,4.6vw,3.1rem);margin:18px auto 20px;max-width:44rem}
+  .hero h1 .hl{color:var(--green)}
+  .hero p.lead{font-size:1.12rem;color:var(--muted);max-width:36rem;margin:0 auto}
+  .hero .cta-row{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:center}
+  .hero .micro{margin-top:14px;font-size:.85rem;color:var(--muted)}
+  .trust{margin-top:32px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+  .trust span{font-size:.78rem;color:var(--muted);background:#fff;border:1px solid #e7e4dc;padding:6px 12px;border-radius:999px}
+
+  /* SIMULATOR */
+  .sim{padding:70px 0}
+  .sim h2{font-size:clamp(1.6rem,3.4vw,2.3rem);text-align:center}
+  .sim-box{background:#fff;border:1px solid #ecebe5;border-radius:20px;box-shadow:var(--shadow);
+    max-width:720px;margin:34px auto 0;overflow:hidden}
+  .sim-progress{height:5px;background:#efede7}
+  .sim-progress i{display:block;height:100%;background:var(--green);width:14%;transition:width .35s}
+  .sim-inner{padding:36px 40px 40px}
+  .step{display:none;animation:fade .35s}
+  .step.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .step h3{font-size:1.42rem;margin-bottom:6px}
+  .step .sub{color:var(--muted);font-size:.95rem;margin-bottom:24px}
+  .choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .choice{border:1.5px solid #e3e1d9;border-radius:var(--radius);padding:15px 18px;cursor:pointer;
+    font-size:.96rem;font-weight:500;background:#fff;text-align:left;transition:all .15s;font-family:'Inter',sans-serif}
+  .choice:hover{border-color:var(--green)}
+  .choice.selected{border-color:var(--green);background:var(--green-light);color:var(--green-dark);font-weight:600}
+  .field{margin-bottom:20px}
+  .field label{display:block;font-weight:600;font-size:.92rem;margin-bottom:8px}
+  .field input[type=number],.field input[type=text],.field input[type=email],.field input[type=tel]{
+    width:100%;padding:14px 16px;border:1.5px solid #e3e1d9;border-radius:var(--radius);
+    font-size:1.02rem;font-family:'Inter',sans-serif}
+  .field input:focus{outline:none;border-color:var(--green)}
+  .field .hint{font-size:.8rem;color:var(--muted);margin-top:6px}
+  .slider-row{display:flex;align-items:center;gap:16px}
+  input[type=range]{flex:1;accent-color:var(--green)}
+  .slider-val{font-weight:700;color:var(--green-dark);min-width:90px;text-align:right;font-variant-numeric:tabular-nums}
+  .nav-row{display:flex;justify-content:space-between;margin-top:30px;align-items:center}
+  .nav-row .back{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.95rem;font-family:'Inter',sans-serif;padding:12px 0}
+  .nav-row .back:hover{color:var(--ink)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .consent{display:flex;gap:12px;align-items:flex-start;background:var(--sand);border-radius:var(--radius);
+    padding:16px 18px;margin-top:6px;cursor:pointer}
+  .consent input{margin-top:4px;accent-color:var(--green);width:18px;height:18px;flex-shrink:0}
+  .consent span{font-size:.88rem;color:var(--ink)}
+  .consent .rgpd{display:block;font-size:.75rem;color:var(--muted);margin-top:4px}
+  .err{color:#b3423a;font-size:.85rem;margin-top:10px;display:none}
+
+  /* RESULTS (teaser) */
+  .res-head{text-align:center;margin-bottom:26px}
+  .res-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:10px}
+  .res-card{background:var(--sand);border-radius:var(--radius);padding:20px 22px}
+  .res-card .lbl{font-size:.8rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+  .res-card .val{font-family:'Fraunces',serif;font-size:1.9rem;font-weight:600;margin-top:4px}
+  .res-card.green{background:var(--green);color:#fff}
+  .res-card.green .lbl{color:rgba(255,255,255,.75)}
+  .teaser{margin-top:20px;border:1.5px dashed var(--green);border-radius:var(--radius);padding:22px 24px;
+    background:var(--green-light);text-align:center}
+  .teaser .t-big{font-family:'Fraunces',serif;font-size:1.3rem;color:var(--green-dark);font-weight:600}
+  .teaser p{font-size:.93rem;color:var(--green-dark);margin-top:6px}
+  .locked{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+  .locked .row{background:#fff;border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px;
+    font-size:.92rem;color:var(--muted)}
+  .locked .row::before{content:"🔒";font-size:.9rem}
+  .res-cta{text-align:center;margin-top:28px}
+  .res-cta p{margin-bottom:16px;font-size:.98rem;color:var(--muted)}
+  .res-disclaimer{font-size:.75rem;color:var(--muted);margin-top:22px;line-height:1.5}
+
+  /* METHOD */
+  .method{padding:70px 0;background:var(--sand)}
+  .method h2, .rdv h2{font-size:clamp(1.6rem,3.4vw,2.3rem);text-align:center}
+  .method .sub2{text-align:center;color:var(--muted);max-width:36rem;margin:14px auto 0}
+  .steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+  .s3{background:#fff;border-radius:20px;padding:28px;border:1px solid #ecebe5}
+  .s3 .num{font-family:'Fraunces',serif;font-size:2rem;color:var(--green);font-weight:600}
+  .s3 h3{font-size:1.15rem;margin:10px 0 8px}
+  .s3 p{font-size:.92rem;color:var(--muted)}
+
+  /* RDV */
+  .rdv{padding:70px 0}
+  .rdv .sub2{text-align:center;color:var(--muted);max-width:36rem;margin:14px auto 34px}
+  .cal-frame{max-width:760px;margin:0 auto;border:1px solid #ecebe5;border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+  .cal-frame iframe{width:100%;height:640px;border:none}
+  .rdv .alt{text-align:center;margin-top:18px;font-size:.9rem;color:var(--muted)}
+  .rdv .alt a{color:var(--green-dark)}
+
+  /* FAQ */
+  .faq{padding:60px 0;background:var(--sand)}
+  .faq h2{font-size:1.7rem;text-align:center;margin-bottom:30px}
+  .faq details{background:#fff;border:1px solid #ecebe5;border-radius:var(--radius);margin-bottom:10px;
+    max-width:720px;margin-left:auto;margin-right:auto}
+  .faq summary{padding:18px 22px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+  .faq summary::after{content:"+";color:var(--green);font-size:1.3rem;font-weight:400}
+  .faq details[open] summary::after{content:"–"}
+  .faq .a{padding:0 22px 18px;color:var(--muted);font-size:.94rem}
+
+  /* FOOTER */
+  footer{padding:40px 0 50px;font-size:.78rem;color:var(--muted);line-height:1.7}
+  footer .wrap{max-width:820px}
+  footer strong{color:var(--ink)}
+
+  @media(max-width:820px){
+    .steps3{grid-template-columns:1fr}
+    .res-grid,.choices,.grid2{grid-template-columns:1fr}
+    .sim-inner{padding:28px 22px 32px}
+    .cal-frame iframe{height:560px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="https://b-organic.fr">B<span>.</span>organic</a>
+    <a class="btn" href="#simulateur">Faire ma simulation</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <span class="tag">Économie immédiate · Simulation gratuite · 2 minutes</span>
+    <h1>Votre avis d'imposition pique&nbsp;?<br><span class="hl">Estimez ce que vous pourriez récupérer.</span></h1>
+    <p class="lead">Répondez à quelques questions et découvrez votre potentiel de réduction d'impôt, analysé par un conseiller indépendant certifié, pas par un vendeur de produits.</p>
+    <p class="lead" style="margin-top:16px;font-size:1.08rem"><strong style="color:var(--green-dark)">Et c'est une économie immédiate&nbsp;:</strong> de l'argent concret, visible dès votre <strong>prochain avis d'imposition</strong>, pas un gain hypothétique dans dix ans.</p>
+    <p class="lead" style="margin-top:16px;font-size:1rem"><strong style="color:var(--green-dark)">À titre d'illustration : une stratégie adaptée permet souvent d'économiser de l'ordre de 15&nbsp;% d'impôt par an*.</strong> Sur 2&nbsp;500&nbsp;€ d'impôt, c'est environ 375&nbsp;€ chaque année, soit plus de 7&nbsp;000&nbsp;€ cumulés d'ici votre retraite. Des stratégies déjà mises en place pour des particuliers, auto-entrepreneurs, indépendants et chefs d'entreprise, toutes catégories socio-professionnelles confondues.</p>
+    <p style="margin-top:18px"><span class="tag">🎁 Bonus : en complétant le questionnaire, recevez gratuitement par email notre guide sur un dispositif de réduction d'impôt méconnu du grand public</span></p>
+    <p class="micro" style="margin-top:8px">Un mécanisme légal, encadré par le Code général des impôts, qui permet de réduire son impôt dès l'année suivante. La plupart des contribuables n'en ont jamais entendu parler.</p>
+    <div class="cta-row">
+      <a class="btn" href="#simulateur">Lancer le simulateur</a>
+    </div>
+    <p class="micro">Résultat immédiat · Vos données ne sont ni revendues, ni partagées</p>
+    <p class="micro" style="margin-top:6px">*Illustration calculée sur 20 ans, non garantie : le résultat réel dépend de votre situation, des dispositifs adaptés et de la réglementation en vigueur.</p>
+    <div class="trust">
+      <span>CIF · Membre CNCEF Patrimoine</span>
+      <span>Immatriculé ORIAS n° 24 008 544</span>
+      <span>Cabinet indépendant · Île-de-France & visio</span>
+    </div>
+  </div>
+</section>
+
+<!-- SIMULATOR -->
+<section class="sim" id="simulateur">
+  <div class="wrap">
+    <h2>Où en êtes-vous <em>vraiment</em> avec l'impôt&nbsp;?</h2>
+    <div class="sim-box">
+      <div class="sim-progress"><i id="prog"></i></div>
+      <div class="sim-inner">
+
+        <!-- STEP 1 : foyer -->
+        <div class="step active" data-step="1">
+          <h3>Votre situation familiale</h3>
+          <p class="sub">Elle détermine votre nombre de parts fiscales.</p>
+          <div class="choices" id="situation">
+            <button class="choice" data-val="1">Célibataire / divorcé·e</button>
+            <button class="choice" data-val="2">Marié·e / pacsé·e</button>
+          </div>
+          <div class="field" style="margin-top:22px">
+            <label>Nombre d'enfants à charge</label>
+            <div class="choices" id="enfants" style="grid-template-columns:repeat(4,1fr)">
+              <button class="choice selected" data-val="0">0</button>
+              <button class="choice" data-val="1">1</button>
+              <button class="choice" data-val="2">2</button>
+              <button class="choice" data-val="3">3+</button>
+            </div>
+          </div>
+          <div class="nav-row"><span></span><button class="btn" onclick="next(1)">Continuer →</button></div>
+        </div>
+
+        <!-- STEP 2 : statut & revenus -->
+        <div class="step" data-step="2">
+          <h3>Votre activité et vos revenus</h3>
+          <p class="sub">Le statut change les leviers disponibles.</p>
+          <div class="field">
+            <label>Votre statut professionnel</label>
+            <div class="choices" id="statut">
+              <button class="choice" data-val="salarie">Salarié·e</button>
+              <button class="choice" data-val="independant">Indépendant / chef d'entreprise</button>
+              <button class="choice" data-val="liberal">Profession libérale</button>
+              <button class="choice" data-val="retraite">Retraité·e</button>
+            </div>
+          </div>
+          <div class="field">
+            <label>Revenu net imposable annuel du foyer (€)</label>
+            <input type="number" id="revenu" placeholder="ex : 65 000" min="0" step="1000">
+            <p class="hint">Vous le trouvez sur votre avis d'imposition (ligne « revenu imposable »), ou sur votre bulletin de paie : ligne « montant net imposable ». Le plus simple : le cumul annuel indiqué sur le bulletin de décembre. Sinon : montant mensuel × 12 (ou × 13 si vous avez un 13ᵉ mois), en ajoutant vos primes imposables si elles n'y figurent pas.</p>
+          </div>
+          <div class="nav-row"><button class="back" onclick="prev(2)">← Retour</button><button class="btn" onclick="next(2)">Continuer →</button></div>
+        </div>
+
+        <!-- STEP 3 : impôt & logement -->
+        <div class="step" data-step="3">
+          <h3>Votre impôt et votre logement</h3>
+          <p class="sub">Deux informations qui orientent fortement la stratégie.</p>
+          <div class="field">
+            <label>Impôt sur le revenu payé l'an dernier</label>
+            <div class="choices" id="impotActuel">
+              <button class="choice" data-val="lt2500">Moins de 2 500 €</button>
+              <button class="choice" data-val="2500-5000">2 500 – 5 000 €</button>
+              <button class="choice" data-val="5000-10000">5 000 – 10 000 €</button>
+              <button class="choice" data-val="gt10000">Plus de 10 000 €</button>
+            </div>
+          </div>
+          <div class="field">
+            <label>Votre résidence principale</label>
+            <div class="choices" id="logement">
+              <button class="choice" data-val="proprietaire">Propriétaire</button>
+              <button class="choice" data-val="locataire">Locataire</button>
+            </div>
+          </div>
+          <div class="nav-row"><button class="back" onclick="prev(3)">← Retour</button><button class="btn" onclick="next(3)">Continuer →</button></div>
+        </div>
+
+        <!-- STEP 4 : déjà optimisé ? -->
+        <div class="step" data-step="4">
+          <h3>Avez-vous déjà optimisé vos impôts&nbsp;?</h3>
+          <p class="sub">Cochez tout ce que vous utilisez déjà (plusieurs réponses possibles).</p>
+          <div class="choices" id="dejaOptimise">
+            <button class="choice multi" data-val="per">PER (épargne retraite)</button>
+            <button class="choice multi" data-val="girardin">Girardin industriel</button>
+            <button class="choice multi" data-val="immo">Immobilier locatif / déficit foncier</button>
+            <button class="choice multi" data-val="av">Assurance-vie</button>
+            <button class="choice multi" data-val="autre">Autre dispositif</button>
+            <button class="choice multi" data-val="aucun">Aucun pour le moment</button>
+          </div>
+          <div class="nav-row"><button class="back" onclick="prev(4)">← Retour</button><button class="btn" onclick="next(4)">Continuer →</button></div>
+        </div>
+
+        <!-- STEP 5 : épargne & objectif -->
+        <div class="step" data-step="5">
+          <h3>Votre capacité d'épargne et votre objectif</h3>
+          <p class="sub">Combien pourriez-vous mettre de côté chaque mois pour votre projet patrimonial&nbsp;?</p>
+          <div class="slider-row">
+            <input type="range" id="epargne" min="0" max="3000" step="50" value="300" oninput="updSlider()">
+            <span class="slider-val" id="epargneVal">300 € / mois</span>
+          </div>
+          <button class="choice" id="nspBtn" style="margin-top:14px;width:100%;text-align:center" onclick="toggleNsp()">Je ne sais pas encore</button>
+          <div class="field" style="margin-top:26px">
+            <label>Votre objectif principal</label>
+            <div class="choices" id="objectif">
+              <button class="choice selected" data-val="impots">Payer moins d'impôts</button>
+              <button class="choice" data-val="retraite">Préparer ma retraite</button>
+              <button class="choice" data-val="immo">Investir dans l'immobilier</button>
+              <button class="choice" data-val="revenus">Créer des revenus complémentaires</button>
+            </div>
+          </div>
+          <div class="field" style="margin-top:22px">
+            <label>À quelle échéance souhaitez-vous agir ?</label>
+            <div class="choices" id="echeance" style="grid-template-columns:repeat(3,1fr)">
+              <button class="choice" data-val="now">Dès maintenant</button>
+              <button class="choice" data-val="6mois">D'ici 6 mois</button>
+              <button class="choice" data-val="curieux">Je me renseigne</button>
+            </div>
+          </div>
+          <div class="nav-row"><button class="back" onclick="prev(5)">← Retour</button><button class="btn" onclick="next(5)">Continuer →</button></div>
+        </div>
+
+        <!-- STEP 6 : coordonnées -->
+        <div class="step" data-step="6">
+          <h3>Dernière étape avant votre résultat</h3>
+          <p class="sub">Votre estimation s'affiche juste après, et un conseiller vous présente les solutions identifiées lors d'un rappel gratuit. 🎁 Vous recevez aussi par email votre guide gratuit sur un dispositif de réduction d'impôt méconnu du grand public.</p>
+          <div class="grid2">
+            <div class="field"><label>Prénom</label><input type="text" id="prenom" autocomplete="given-name" placeholder="Votre prénom"></div>
+            <div class="field"><label>Nom</label><input type="text" id="nom" autocomplete="family-name" placeholder="Votre nom"></div>
+          </div>
+          <div class="field"><label>Email</label><input type="email" id="email" autocomplete="email" placeholder="vous@exemple.fr"></div>
+          <div class="field"><label>Téléphone</label><input type="tel" id="tel" autocomplete="tel" placeholder="06 12 34 56 78"></div>
+          <label class="consent">
+            <input type="checkbox" id="consent">
+            <span>Je souhaite être rappelé·e gratuitement par B.organic pour découvrir les solutions adaptées à ma situation.
+              <span class="rgpd">En validant, vous acceptez que vos données soient utilisées pour vous recontacter au sujet de votre simulation, conformément à notre <a href="https://b-organic.fr/confidentialite.html" target="_blank" rel="noopener" style="color:var(--muted)">politique de confidentialité</a>. Elles ne sont ni revendues, ni partagées. Désinscription possible à tout moment.</span>
+            </span>
+          </label>
+          <p class="err" id="formErr">Merci de remplir tous les champs et de cocher la case de rappel pour accéder à votre résultat.</p>
+          <div class="nav-row"><button class="back" onclick="prev(6)">← Retour</button><button class="btn" onclick="submitLead()">Voir mon résultat →</button></div>
+        </div>
+
+        <!-- STEP 7 : RESULTS (teaser) -->
+        <div class="step" data-step="7">
+          <div class="res-head">
+            <span class="tag">Estimation indicative — barème 2025</span>
+            <h3 style="margin-top:12px" id="resTitle">Votre photographie fiscale</h3>
+          </div>
+          <div class="res-grid">
+            <div class="res-card">
+              <div class="lbl">Impôt sur le revenu estimé</div>
+              <div class="val" id="rIR">—</div>
+            </div>
+            <div class="res-card">
+              <div class="lbl">Tranche marginale (TMI)</div>
+              <div class="val" id="rTMI">—</div>
+            </div>
+            <div class="res-card green" style="grid-column:1/-1">
+              <div class="lbl">Potentiel de réduction estimé</div>
+              <div class="val" id="rPotentiel">—</div>
+            </div>
+          </div>
+          <div class="teaser">
+            <div class="t-big" id="teaserCount">—</div>
+            <p>Ces leviers sont personnalisés selon vos réponses. Un conseiller vous les présente en détail, chiffres à l'appui, lors de votre rappel gratuit.</p>
+            <div class="locked" id="lockedRows"></div>
+          </div>
+          <div class="res-cta">
+            <p><strong>Vous serez rappelé·e sous 24 h ouvrées, et votre guide gratuit arrive dans votre boîte mail.</strong><br>Vous préférez choisir vous-même votre créneau ?</p>
+            <a class="btn" href="#rdv">Réserver mes 30 min offertes</a>
+          </div>
+          <p class="res-disclaimer">Simulation simplifiée à visée pédagogique : barème progressif 2025 et quotient familial standard, hors décote, plafonnement du quotient familial, réductions et crédits d'impôt existants, prélèvements sociaux et cas particuliers. Elle ne constitue ni un conseil en investissement, ni une recommandation personnalisée, ni un engagement. Tout dispositif de réduction d'impôt comporte des conditions, des plafonds et des <strong>risques, notamment de perte en capital</strong>. Une étude personnalisée est indispensable avant toute décision.</p>
+          <div class="nav-row"><button class="back" onclick="restart()">↺ Refaire une simulation</button></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RDV -->
+<section class="rdv" id="rdv">
+  <div class="wrap">
+    <h2>Ou réservez directement votre échange <em>offert</em></h2>
+    <p class="sub2">30 minutes, en visio ou par téléphone, sans engagement. Choisissez simplement votre créneau.</p>
+    <div class="cal-frame">
+      <iframe src="https://koalendar.com/e/premier-rdv-5?embed=true" title="Prise de rendez-vous B.organic"></iframe>
+    </div>
+    <p class="alt">Le calendrier ne s'affiche pas ? <a href="https://koalendar.com/e/premier-rdv-5" target="_blank" rel="noopener">Ouvrir la prise de rendez-vous ↗</a> · Vous préférez parler directement ? <a href="tel:+33635320104">06 35 32 01 04</a></p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="wrap">
+    <h2>Questions fréquentes</h2>
+    <details>
+      <summary>La simulation est-elle vraiment gratuite et sans engagement ?</summary>
+      <div class="a">Oui. L'estimation et le rappel de 30 minutes sont offerts et sans engagement. Vous restez libre de donner suite ou non.</div>
+    </details>
+    <details>
+      <summary>Pourquoi dois-je laisser mes coordonnées ?</summary>
+      <div class="a">Parce que les leviers identifiés dépendent de votre situation précise : les présenter sérieusement demande un échange, pas une page web. Vos coordonnées servent uniquement à ce rappel : elles ne sont ni revendues, ni partagées.</div>
+    </details>
+    <details>
+      <summary>Le résultat du simulateur est-il fiable ?</summary>
+      <div class="a">C'est un ordre de grandeur pédagogique fondé sur le barème progressif et le quotient familial standard. Votre situation réelle (décote, réductions existantes, revenus fonciers…) peut modifier le résultat, et c'est précisément ce qu'on affine ensemble.</div>
+    </details>
+    <details>
+      <summary>Qui êtes-vous ?</summary>
+      <div class="a">B.organic est un cabinet indépendant de conseil en gestion de patrimoine fondé par Menzo, conseiller certifié AMF, membre de la CNCEF Patrimoine et immatriculé à l'ORIAS. Spécialité du cabinet : concilier performance financière et investissement durable. En savoir plus sur <a href="https://b-organic.fr">b-organic.fr</a>.</div>
+    </details>
+    <details>
+      <summary>Réduire ses impôts, est-ce sans risque ?</summary>
+      <div class="a">Non, et méfiez-vous de quiconque prétend le contraire. Chaque dispositif comporte des conditions, des plafonds et des risques (notamment de perte en capital ou de reprise fiscale en cas de non-respect des conditions). Mon rôle est justement de chiffrer le couple avantage/risque de chaque option avant toute décision.</div>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><strong>B.organic · Conseil en gestion de patrimoine</strong><br>
+    Entreprise individuelle · SIREN 924 113 947 · Conseiller en investissements financiers membre de la CNCEF Patrimoine, association agréée par l'Autorité des marchés financiers · Immatriculé à l'ORIAS sous le n° 24 008 544 (www.orias.fr) en qualité de CIF, MIA et IOBSP.</p>
+    <p style="margin-top:12px">Investir comporte des risques de perte en capital. Les performances passées ne préjugent pas des performances futures. Les avantages fiscaux dépendent de la situation individuelle de chaque contribuable et de la réglementation en vigueur, susceptibles d'évoluer. Ce simulateur fournit une estimation indicative et ne constitue pas un conseil personnalisé.</p>
+    <p style="margin-top:12px">© 2026 B.organic · <a href="https://b-organic.fr/mentions-legales.html" style="color:var(--muted)">Mentions légales</a> · <a href="https://b-organic.fr/confidentialite.html" style="color:var(--muted)">Politique de confidentialité</a> · <a href="https://b-organic.fr" style="color:var(--muted)">b-organic.fr</a></p>
+  </div>
+</footer>
+
+<script>
+// ================== CONFIGURATION ==================
+// Collez ici l'URL de votre webhook n8n (ou Make/Formspree) pour recevoir chaque lead.
+// Tant qu'elle est vide, les leads ne sont envoyés nulle part (pensez à la configurer AVANT la mise en ligne !).
+const LEAD_WEBHOOK_URL = '';
+// ===================================================
+
+const TOTAL_STEPS = 7;
+const state = {
+  situation:null, enfants:0, statut:null, revenu:0,
+  impotActuel:null, logement:null, dejaOptimise:[],
+  epargne:300, epargneInconnue:false, objectif:'impots', echeance:null,
+  prenom:'', nom:'', email:'', tel:'', consent:false
+};
+
+// ---------- Choice bindings ----------
+function bindChoices(id, key, parse){
+  document.querySelectorAll('#'+id+' .choice').forEach(b=>{
+    b.addEventListener('click',()=>{
+      document.querySelectorAll('#'+id+' .choice').forEach(x=>x.classList.remove('selected'));
+      b.classList.add('selected');
+      state[key] = parse ? parse(b.dataset.val) : b.dataset.val;
+    });
+  });
+}
+bindChoices('situation','situation',v=>parseInt(v));
+bindChoices('enfants','enfants',v=>parseInt(v));
+bindChoices('statut','statut');
+bindChoices('impotActuel','impotActuel');
+bindChoices('logement','logement');
+bindChoices('objectif','objectif');
+bindChoices('echeance','echeance');
+
+// multi-select : "déjà optimisé"
+document.querySelectorAll('#dejaOptimise .choice').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const v=b.dataset.val;
+    if(v==='aucun'){
+      document.querySelectorAll('#dejaOptimise .choice').forEach(x=>x.classList.remove('selected'));
+      b.classList.add('selected');
+      state.dejaOptimise=['aucun'];
+      return;
+    }
+    document.querySelector('#dejaOptimise .choice[data-val="aucun"]').classList.remove('selected');
+    state.dejaOptimise = state.dejaOptimise.filter(x=>x!=='aucun');
+    b.classList.toggle('selected');
+    if(b.classList.contains('selected')) state.dejaOptimise.push(v);
+    else state.dejaOptimise = state.dejaOptimise.filter(x=>x!==v);
+  });
+});
+
+function updSlider(){
+  if(state.epargneInconnue) return;
+  state.epargne = parseInt(document.getElementById('epargne').value);
+  document.getElementById('epargneVal').textContent = fmt(state.epargne)+' / mois';
+}
+function toggleNsp(){
+  state.epargneInconnue = !state.epargneInconnue;
+  const b = document.getElementById('nspBtn');
+  const s = document.getElementById('epargne');
+  b.classList.toggle('selected', state.epargneInconnue);
+  s.disabled = state.epargneInconnue;
+  s.style.opacity = state.epargneInconnue ? .4 : 1;
+  document.getElementById('epargneVal').textContent = state.epargneInconnue ? 'à définir' : fmt(state.epargne)+' / mois';
+}
+
+// ---------- Navigation ----------
+function show(n){
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.querySelector('.step[data-step="'+n+'"]').classList.add('active');
+  document.getElementById('prog').style.width = Math.round(n/TOTAL_STEPS*100)+'%';
+  document.getElementById('simulateur').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function next(n){
+  if(n===1 && !state.situation){ alert('Choisissez votre situation familiale.'); return; }
+  if(n===2){
+    state.revenu = parseFloat(document.getElementById('revenu').value)||0;
+    if(!state.statut){ alert('Choisissez votre statut professionnel.'); return; }
+    if(state.revenu<=0){ alert('Indiquez votre revenu net imposable.'); return; }
+  }
+  if(n===3 && (!state.impotActuel || !state.logement)){ alert('Répondez aux deux questions pour continuer.'); return; }
+  if(n===4 && state.dejaOptimise.length===0){ alert('Cochez au moins une réponse (ou « Aucun pour le moment »).'); return; }
+  show(n+1);
+}
+function prev(n){ show(n-1); }
+function restart(){ show(1); }
+
+// ---------- Tax engine (barème 2025 — indicatif) ----------
+const BRACKETS = [
+  {upTo:11497, rate:0},
+  {upTo:29315, rate:.11},
+  {upTo:83823, rate:.30},
+  {upTo:180294, rate:.41},
+  {upTo:Infinity, rate:.45}
+];
+function taxPerPart(base){
+  let tax=0, prev=0;
+  for(const b of BRACKETS){
+    if(base>prev) tax += (Math.min(base,b.upTo)-prev)*b.rate;
+    prev=b.upTo;
+    if(base<=prev) break;
+  }
+  return tax;
+}
+function tmiOf(base){
+  for(const b of BRACKETS){ if(base<=b.upTo) return b.rate; }
+  return .45;
+}
+function parts(){
+  let p = state.situation===2?2:1;
+  const e = state.enfants;
+  p += e>=3 ? 1 + (e-2) : e*0.5;
+  return p;
+}
+const fmt = n => Math.round(n).toLocaleString('fr-FR')+' €';
+
+// ---------- Lead submit ----------
+function validEmail(e){ return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e); }
+function validTel(t){ return t.replace(/\D/g,'').length>=9; }
+
+function submitLead(){
+  state.prenom = document.getElementById('prenom').value.trim();
+  state.nom = document.getElementById('nom').value.trim();
+  state.email = document.getElementById('email').value.trim();
+  state.tel = document.getElementById('tel').value.trim();
+  state.consent = document.getElementById('consent').checked;
+
+  const err = document.getElementById('formErr');
+  if(!state.prenom || !state.nom || !validEmail(state.email) || !validTel(state.tel) || !state.consent){
+    err.style.display='block';
+    return;
+  }
+  err.style.display='none';
+  calc();
+}
+
+// ---------- Compute & render (teaser : leviers verrouillés, non nommés) ----------
+function calc(){
+  updSlider();
+  const p = parts();
+  const perPart = state.revenu / p;
+  const ir = Math.max(0, taxPerPart(perPart) * p);
+  const tmi = tmiOf(perPart);
+
+  document.getElementById('rIR').textContent = fmt(ir)+' / an';
+  document.getElementById('rTMI').textContent = Math.round(tmi*100)+' %';
+  document.getElementById('resTitle').textContent = state.prenom ? state.prenom+', voici votre photographie fiscale' : 'Votre photographie fiscale';
+
+  // Comptage des leviers pertinents (sans les nommer côté prospect)
+  const has = v => state.dejaOptimise.includes(v);
+  const ep = state.epargneInconnue ? 0 : state.epargne;
+  const versementAnnuel = ep*12;
+  const plafondPER = Math.min(Math.max(state.revenu*0.10, 4710), 37094);
+  const perVersement = Math.min(versementAnnuel, plafondPER);
+  const perEco = perVersement * tmi;
+
+  let count = 0, potMin = 0, potMax = 0;
+  const teaserLines = [];
+
+  if(!has('per') && perVersement>0 && tmi>=0.30){
+    count++; potMin += perEco; potMax += perEco;
+    teaserLines.push('Un levier de déduction lié à votre capacité d\'épargne');
+  }
+  if(ir>=2500 && !has('girardin')){
+    count++; potMin += ir*0.08; potMax += ir*0.12;
+    teaserLines.push('Un dispositif de réduction « one-shot », réservé aux impositions significatives');
+  }
+  if(!has('immo') && (state.objectif==='immo' || state.objectif==='revenus' || ep>=400)){
+    count++; potMax += ir*0.05;
+    teaserLines.push('Une stratégie patrimoniale génératrice de revenus, à effet fiscal');
+  }
+  if(state.situation===2 || state.enfants>0){
+    count++;
+    teaserLines.push('Des optimisations du foyer souvent sous-utilisées');
+  }
+  if(state.statut==='independant' || state.statut==='liberal'){
+    count++;
+    teaserLines.push('Des leviers spécifiques à votre statut d\'indépendant');
+  }
+  if(state.epargneInconnue){
+    count++;
+    teaserLines.push('Le calibrage de votre effort d\'épargne idéal, à définir ensemble');
+  }
+  if(count===0){
+    count=1;
+    teaserLines.push('Une analyse personnalisée de votre situation');
+  }
+
+  document.getElementById('rPotentiel').textContent =
+    potMax>0 ? fmt(potMin)+' – '+fmt(potMax)+' / an' : 'À déterminer lors de votre rappel';
+  document.getElementById('teaserCount').textContent =
+    count+' levier'+(count>1?'s':'')+' identifié'+(count>1?'s':'')+' pour votre profil';
+  document.getElementById('lockedRows').innerHTML =
+    teaserLines.map(t=>'<div class="row">'+t+'</div>').join('');
+
+  sendLead(ir, tmi, count, potMin, potMax);
+  show(7);
+}
+
+// ---------- Webhook ----------
+function sendLead(ir, tmi, leviers, potMin, potMax){
+  if(!LEAD_WEBHOOK_URL) { console.warn('LEAD_WEBHOOK_URL non configurée : lead non transmis.'); return; }
+  const payload = {
+    ...state,
+    ir_estime: Math.round(ir),
+    tmi: Math.round(tmi*100),
+    leviers_identifies: leviers,
+    potentiel_min: Math.round(potMin),
+    potentiel_max: Math.round(potMax),
+    source: 'simulateur-impots',
+    page: location.href,
+    date: new Date().toISOString()
+  };
+  fetch(LEAD_WEBHOOK_URL, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  }).catch(err=>console.error('Envoi lead échoué', err));
+}
+</script>
+</body>
+</html>
