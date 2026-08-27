@@ -404,9 +404,9 @@
 
 <script>
 // ================== CONFIGURATION ==================
-// Collez ici l'URL de votre webhook n8n (ou Make/Formspree) pour recevoir chaque lead.
-// Tant qu'elle est vide, les leads ne sont envoyés nulle part (pensez à la configurer AVANT la mise en ligne !).
-const LEAD_WEBHOOK_URL = '';
+// Destination des leads : formulaire public Brevo (liste « Simulateur impots - leads »).
+// C'est une URL publique, PAS une cle API : elle ne donne acces a aucune donnee du compte.
+const BREVO_FORM_URL = 'https://e7e52770.sibforms.com/serve/MUIFANSOyQSgdpww0-FjWzWovweZyRN50NTtRjU8GoOPeyARbEJIVf82SydsDaOdj-fXhExBiBJFvzxemXK7QrTBOSP4S4QKyUPFi3kjm2SPoQmAgq0Z2r8WheBukuSbDGlkCZpIJ5iecyKa4sqC6oLu2qdbf8I4vFJBKQLMis4Hys89SbPXZmzftcLJBictAYvwvnnWZSpBc0f5bw==';
 // ===================================================
 
 const TOTAL_STEPS = 7;
@@ -603,23 +603,66 @@ function calc(){
 
 // ---------- Webhook ----------
 function sendLead(ir, tmi, leviers, potMin, potMax){
-  if(!LEAD_WEBHOOK_URL) { console.warn('LEAD_WEBHOOK_URL non configurée : lead non transmis.'); return; }
-  const payload = {
-    ...state,
-    ir_estime: Math.round(ir),
-    tmi: Math.round(tmi*100),
-    leviers_identifies: leviers,
-    potentiel_min: Math.round(potMin),
-    potentiel_max: Math.round(potMax),
-    source: 'simulateur-impots',
-    page: location.href,
-    date: new Date().toISOString()
+  if(!BREVO_FORM_URL){ console.warn('BREVO_FORM_URL non configuree : lead non transmis.'); return; }
+  if(!state.consent || !state.email){ return; }          // pas de consentement, pas d'envoi
+
+  const LIB = {
+    situation: {1:'Célibataire / divorcé(e)', 2:'Marié(e) / pacsé(e)'},
+    statut:    {salarie:'Salarié(e)', independant:'Indépendant / chef d’entreprise',
+                liberal:'Profession libérale', retraite:'Retraité(e)'},
+    logement:  {proprietaire:'Propriétaire', locataire:'Locataire'},
+    objectif:  {impots:'Payer moins d’impôts', retraite:'Préparer sa retraite',
+                immo:'Investir dans l’immobilier', revenus:'Créer des revenus complémentaires'},
+    echeance:  {now:'Dès maintenant', '6mois':'D’ici 6 mois', curieux:'Se renseigne'},
+    dispo:     {per:'PER', girardin:'Girardin industriel', immo:'Immobilier locatif',
+                av:'Assurance-vie', autre:'Autre dispositif', aucun:'Aucun'},
+    impot:     {'lt2500':'moins de 2 500 €', '2500-5000':'2 500 – 5 000 €',
+                '5000-10000':'5 000 – 10 000 €', 'gt10000':'plus de 10 000 €'}
   };
-  fetch(LEAD_WEBHOOK_URL, {
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body: JSON.stringify(payload)
-  }).catch(err=>console.error('Envoi lead échoué', err));
+  // milieu de fourchette : permet de cibler sur un nombre dans Brevo
+  const IMPOT_NUM = {'lt2500':1500, '2500-5000':3750, '5000-10000':7500, 'gt10000':15000};
+  const lib = (d, k) => (k != null && d[k]) ? d[k] : '';
+
+  // Numero au format international quand c'est possible, sinon tel que saisi.
+  // Volontairement stocke dans TELEPHONE (attribut texte) et non dans SMS :
+  // Brevo impose l'unicite du champ SMS et rejetterait TOUT le lead en cas de doublon.
+  let tel = String(state.tel || '').replace(/[^0-9+]/g, '');
+  if(/^0[1-9][0-9]{8}$/.test(tel))            tel = '+33' + tel.slice(1);
+  else if(/^33[1-9][0-9]{8}$/.test(tel))      tel = '+' + tel;
+  else if(!/^\+33[1-9][0-9]{8}$/.test(tel))   tel = String(state.tel || '').trim();
+
+  // trace lisible dans la fiche contact : ce qu'il declare + ce que le simulateur a calcule
+  const source = 'simulateur-impots'
+    + (state.impotActuel ? ' | déclare ' + lib(LIB.impot, state.impotActuel) : '')
+    + ' | IR estimé ' + Math.round(ir) + ' € · TMI ' + Math.round(tmi*100) + '%'
+    + ' | ' + leviers + ' levier(s), potentiel ' + Math.round(potMin) + '–' + Math.round(potMax) + ' €/an';
+
+  const data = {
+    EMAIL:         state.email,
+    PRENOM:        state.prenom,
+    NOM:           state.nom,
+    TELEPHONE:     tel,
+    IMPOT_PAYE:    IMPOT_NUM[state.impotActuel] != null ? IMPOT_NUM[state.impotActuel] : '',
+    REVENU_NET:    state.revenu || '',
+    NB_ENFANTS:    state.enfants,
+    EPARGNE_MOIS:  state.epargneInconnue ? '' : state.epargne,
+    SITUATION_FAM: lib(LIB.situation, state.situation),
+    STATUT_PRO:    lib(LIB.statut, state.statut),
+    LOGEMENT:      lib(LIB.logement, state.logement),
+    DISPOSITIFS:   (state.dejaOptimise || []).map(k => lib(LIB.dispo, k) || k).join(', '),
+    OBJECTIF:      lib(LIB.objectif, state.objectif),
+    ECHEANCE:      lib(LIB.echeance, state.echeance),
+    SOURCE:        source,
+    email_address_check: '',
+    locale: 'fr',
+    html_type: 'simple'
+  };
+
+  const fd = new FormData();
+  Object.keys(data).forEach(k => fd.append(k, data[k]));
+
+  fetch(BREVO_FORM_URL, { method:'POST', body: fd, mode:'no-cors' })
+    .catch(err => console.error('Envoi lead echoue', err));
 }
 </script>
 </body>
