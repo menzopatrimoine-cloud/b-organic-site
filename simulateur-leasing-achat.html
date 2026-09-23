@@ -53,15 +53,17 @@
     .res__big { font-family: var(--serif); font-size: clamp(40px, 5.4vw, 60px); line-height: 1.05; margin: 12px 0 6px; font-variant-numeric: tabular-nums; }
     .res__sub { font-size: 15px; color: #c9ccd0; }
     .res__sub strong { color: #fff; font-weight: 600; }
-    .rows { margin-top: 24px; display: flex; flex-direction: column; gap: 14px; }
-    .row__top { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; }
-    .row__name { color: #fff; font-weight: 600; }
-    .row__tag { font-size: 11px; font-weight: 600; letter-spacing: .04em; color: var(--ink); background: var(--lime); border-radius: 999px; padding: 2px 8px; margin-left: 6px; vertical-align: 1px; }
-    .row__val { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
-    .row__meta { font-size: 12px; color: #9aa0a6; margin-top: 3px; }
-    .row__bar { height: 6px; border-radius: 3px; background: rgba(255,255,255,.08); margin-top: 7px; overflow: hidden; }
-    .row__bar i { display: block; height: 100%; border-radius: 3px; background: #6b7278; transition: width .45s var(--ease); }
-    .row--best .row__bar i { background: var(--lime); }
+    .stable { margin-top: 22px; }
+    .stable__head, .stable__row { display: grid; grid-template-columns: minmax(0, 1fr) 96px 84px; gap: 10px; align-items: center; }
+    .stable__head { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #8d949a; padding: 0 12px 8px; border-bottom: 1px solid rgba(255,255,255,.1); }
+    .stable__head span:not(:first-child), .stable__num { text-align: right; }
+    .stable__row { padding: 11px 12px; border-radius: 12px; margin-top: 4px; font-size: 14px; }
+    .stable__row--best { background: rgba(156, 203, 67, .14); }
+    .stable__name { color: #fff; font-weight: 600; }
+    .stable__meta { display: block; font-size: 12px; color: #9aa0a6; font-weight: 400; margin-top: 2px; }
+    .stable__num { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+    .stable__num small { display: block; font-size: 11.5px; color: #9aa0a6; font-weight: 500; }
+    .stable__tag { font-size: 10.5px; font-weight: 700; letter-spacing: .05em; color: var(--ink); background: var(--lime); border-radius: 999px; padding: 2px 8px; margin-left: 6px; vertical-align: 1px; white-space: nowrap; }
     .res__insights { margin-top: 18px; display: flex; flex-direction: column; gap: 10px; }
     .insight { background: var(--bg-alt); border: 1px solid var(--card-line); border-radius: 14px; padding: 14px 16px; font-size: 14px; color: var(--body); line-height: 1.55; }
     .insight strong { color: var(--ink); }
@@ -75,18 +77,48 @@
     .how__item h3 { font-size: 19px; margin-bottom: 8px; }
     .how__item p { font-size: 14.5px; color: var(--body); line-height: 1.6; }
 
-    .detail { margin-top: 18px; background: var(--card); border: 1px solid var(--card-line); border-radius: 14px; }
-    .detail summary { cursor: pointer; list-style: none; padding: 14px 16px; font-size: 14px; font-weight: 600; color: var(--ink); display: flex; justify-content: space-between; }
-    .detail summary::-webkit-details-marker { display: none; }
-    .detail summary::after { content: "+"; color: var(--lime-deep); font-size: 18px; line-height: 1; }
-    .detail[open] summary::after { content: "−"; }
-    .detail__scroll { overflow-x: auto; padding: 0 16px 16px; }
-    .dtable { width: 100%; border-collapse: collapse; font-size: 12.5px; font-variant-numeric: tabular-nums; min-width: 640px; }
-    .dtable th, .dtable td { padding: 7px 8px; text-align: right; border-bottom: 1px solid var(--line-soft); white-space: nowrap; }
-    .dtable th:first-child, .dtable td:first-child { text-align: left; color: var(--body); white-space: normal; min-width: 150px; position: sticky; left: 0; background: var(--card); }
-    .dtable thead th { color: var(--ink); font-weight: 600; font-size: 12px; }
-    .dtable tr.total td { font-weight: 700; color: var(--ink); border-bottom: 0; }
+    .out { margin-top: clamp(36px, 6vh, 64px); }
+    .out__title { font-family: var(--serif); font-size: clamp(24px, 3vw, 32px); color: var(--ink); font-weight: 500; margin-bottom: 18px; }
+    .out__title em { color: var(--lime); font-style: normal; }
+    .ocard { background: var(--card); border: 1px solid var(--card-line); border-radius: 20px; padding: clamp(18px, 2.4vw, 28px); }
+    .dscroll { overflow-x: auto; }
+    .dtable { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; min-width: 760px; }
+    .dtable th, .dtable td { padding: 11px 12px; text-align: right; border-bottom: 1px solid var(--line-soft); white-space: nowrap; }
+    .dtable th:first-child, .dtable td:first-child { text-align: left; color: var(--body); white-space: normal; min-width: 170px; position: sticky; left: 0; background: var(--card); }
+    .dtable thead th { color: var(--ink); font-weight: 600; vertical-align: bottom; border-bottom: 1px solid var(--line); }
+    .dtable thead th small { display: block; font-size: 11.5px; font-weight: 500; color: var(--muted); }
     .dtable tr.sub td { color: var(--muted); }
+    .dtable tr.total td { font-weight: 700; color: var(--ink); font-size: 15px; }
+    .dtable tr.total td.is-best, .dtable tr.permonth td.is-best { background: #eef5dd; }
+    .dtable tr.total td.is-worst, .dtable tr.permonth td.is-worst { background: #f8f0e0; }
+    .dtable tr.permonth td { border-bottom: 0; color: var(--ink); font-weight: 600; }
+
+    .chart__legend { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 13px; color: var(--body); margin-bottom: 8px; }
+    .chart__legend span { display: inline-flex; align-items: center; gap: 8px; }
+    .chart__legend i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+    .chart { position: relative; margin: 64px 0 0 52px; height: 300px; }
+    .chart__grid { position: absolute; left: 0; right: 0; border-top: 1px solid var(--line-soft); }
+    .chart__grid--zero { border-top-color: var(--line); }
+    .chart__grid span { position: absolute; right: calc(100% + 10px); top: 0; transform: translateY(-50%); font-size: 11.5px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .chart__cols { position: absolute; inset: 0; display: flex; }
+    .chart__col { flex: 1; display: flex; justify-content: center; align-items: flex-end; height: 100%; min-width: 0; }
+    .chart__stack { position: relative; width: min(64px, 58%); display: flex; flex-direction: column; gap: 2px; transition: height .45s var(--ease); }
+    .chart__seg { display: block; min-height: 0; transition: flex-grow .45s var(--ease); }
+    .chart__seg:first-child { border-radius: 4px 4px 0 0; }
+    .chart__seg--cash { background: #48691d; }
+    .chart__seg--lost { background: #c9a74a; }
+    .chart__col:hover .chart__seg, .chart__col.is-active .chart__seg { filter: brightness(1.08); }
+    .chart__val { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); font-size: 13px; font-weight: 700; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; text-align: center; }
+    .chart__val em { display: block; font-style: normal; font-size: 10px; font-weight: 700; letter-spacing: .06em; color: var(--ink); background: var(--lime); border-radius: 999px; padding: 2px 8px; margin: 0 auto 5px; width: max-content; }
+    .chart__names { display: flex; margin: 12px 0 0 52px; }
+    .chart__names div { flex: 1; min-width: 0; text-align: center; font-size: 13px; font-weight: 600; color: var(--ink); line-height: 1.3; padding: 0 4px; }
+    .chart__names small { display: block; font-size: 11.5px; font-weight: 500; color: var(--muted); margin-top: 2px; }
+    .chart__tip { position: absolute; z-index: 5; pointer-events: none; background: var(--ink); color: #fff; border-radius: 12px; padding: 10px 12px; font-size: 12.5px; line-height: 1.55; min-width: 190px; transform: translateY(-50%); opacity: 0; transition: opacity .15s; box-shadow: 0 12px 30px rgba(0,0,0,.2); }
+    .chart__tip.is-on { opacity: 1; }
+    .chart__tip b { display: block; font-size: 13px; margin-bottom: 4px; }
+    .chart__tip > span { display: flex; justify-content: space-between; gap: 14px; font-variant-numeric: tabular-nums; }
+    .chart__tip span i { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 6px; }
+    .chart__note { font-size: 13px; color: var(--muted); margin-top: 18px; line-height: 1.55; }
     .faqs { margin-top: clamp(28px, 4vh, 44px); }
     .mbar { display: none; }
     @media (max-width: 900px) {
@@ -98,6 +130,19 @@
       .res { position: static; }
       .how { grid-template-columns: 1fr; }
     }
+    @media (max-width: 600px) {
+      .chart { margin-left: 40px; height: 240px; }
+      .chart__names { margin-left: 40px; }
+      .chart__names div { font-size: 11.5px; }
+      .chart__names small { display: none; }
+      .chart__val { font-size: 11px; }
+      .chart__stack { width: 70%; }
+      .stable__head, .stable__row { grid-template-columns: minmax(0, 1fr) 80px 62px; gap: 8px; }
+      .stable__row { padding: 10px 8px; }
+      .stable__head { padding: 0 8px 8px; }
+      .stable__tag { display: table; margin: 4px 0 0; }
+      .res__card { padding: 22px 18px; }
+    }
     @media (max-width: 480px) {
       .fgrid { grid-template-columns: 1fr; }
     }
@@ -106,8 +151,9 @@
       .section { padding: 16px 0 !important; }
       .sim { grid-template-columns: 1fr 1fr; gap: 16px; }
       .res { position: static; }
-      .res__card, .row__bar i, .row__tag { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-      .sblock, .res__card, .detail { break-inside: avoid; }
+      .res__card, .stable__row, .stable__tag, .chart__seg, .chart__val em, .chart__legend i, .dtable td { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .sblock, .res__card, .ocard { break-inside: avoid; }
+      .chart__tip { display: none; }
       .reveal { opacity: 1 !important; transform: none !important; }
     }
   </style>
@@ -186,7 +232,8 @@
               <div class="sblock__head"><span class="sblock__num">02</span><span class="sblock__title">Crédit auto</span></div>
               <div class="fgrid">
                 <div class="fld"><label for="cApport">Apport</label><div class="fld__box"><input id="cApport" type="number" inputmode="numeric" min="0" step="500" value="3000"><span class="fld__unit">€</span></div></div>
-                <div class="fld"><label for="cTaux">Taux (TAEG)</label><div class="fld__box"><input id="cTaux" type="number" inputmode="decimal" min="0" max="25" step="0.1" value="5.5"><span class="fld__unit">%</span></div></div>
+                <div class="fld" id="cTauxFld"><label for="cTaux">Taux (TAEG)</label><div class="fld__box"><input id="cTaux" type="number" inputmode="decimal" min="0" max="25" step="0.1" value="5.5"><span class="fld__unit">%</span></div></div>
+                <div class="fld full"><label for="cMens">Ou mensualité proposée <span style="font-weight:400;color:var(--muted)">(facultatif)</span></label><div class="fld__box"><input id="cMens" type="number" inputmode="numeric" min="0" step="10" placeholder="Si vous avez une offre chiffrée"><span class="fld__unit">€/mois</span></div><p class="fld__hint" id="cMensHint">Si vous l'indiquez, le taux réel est recalculé à partir de la mensualité.</p></div>
               </div>
               <p class="sblock__note">Crédit amortissable sur la même durée que la détention du véhicule.</p>
             </div>
@@ -210,7 +257,7 @@
               <div class="sblock__head"><span class="sblock__num">04</span><span class="sblock__title">Et votre épargne&nbsp;?</span></div>
               <div class="fgrid">
                 <div class="fld full"><label for="rdt">Rendement net annuel de votre épargne</label><div class="fld__box"><input id="rdt" type="number" inputmode="decimal" min="0" max="15" step="0.5" value="3"><span class="fld__unit">% / an</span></div>
-                  <p class="fld__hint">Ce que rapporterait, après impôts et frais, l'argent que vous ne mettez pas dans la voiture. Repère&nbsp;: le Livret A rapporte 1,7&nbsp;% net depuis le 1<sup>er</sup> août 2026&nbsp;; d'autres placements peuvent viser davantage, sans garantie. Mettez 0 pour un comparatif sans placement.</p>
+                  <p class="fld__hint">Ce que rapporterait, après impôts et frais, l'argent que vous ne mettez pas dans la voiture. Repère&nbsp;: le Livret A et le LDDS rapportent 1,7&nbsp;% net depuis le 1<sup>er</sup> août 2026&nbsp;; d'autres placements peuvent viser davantage, sans garantie. Mettez 0 pour un comparatif sans placement.</p>
                   <p class="fld__hint">Le simulateur suppose que vous disposez de la somme. Dans le cas contraire, seules les formules financées sont accessibles.</p></div>
               </div>
             </div>
@@ -219,24 +266,40 @@
           <!-- ---------- Résultat ---------- -->
           <div class="res" id="resultat" aria-live="polite">
             <div class="res__card">
-              <p class="res__eyebrow">Formule la moins chère</p>
+              <p class="res__eyebrow">Vos résultats · formule la moins chère</p>
               <p class="res__big" id="bestCost">·</p>
               <p class="res__sub" id="bestSub">·</p>
-              <div class="rows" id="rows"></div>
+              <div class="stable" id="stable"></div>
             </div>
             <div class="res__insights" id="insights"></div>
-            <details class="detail" id="detail">
-              <summary>Voir le détail du calcul</summary>
-              <div class="detail__scroll"><table class="dtable" id="dtable"></table></div>
-            </details>
             <div class="res__actions">
               <a href="index.html#rdv" class="btn btn--solid" data-umami-event="leasing-rdv">En parler avec un conseiller</a>
               <button type="button" class="btn btn--line" id="share" data-umami-event="leasing-partage">Copier le lien</button>
               <button type="button" class="btn btn--line" id="print" data-umami-event="leasing-pdf">Imprimer / PDF</button>
             </div>
-            <p class="res__legal">Estimation indicative, hors assurance, carburant et fiscalité professionnelle. Les loyers, l'option d'achat et la valeur de revente dépendent du concessionnaire et du marché. Le rendement de l'épargne est une hypothèse, non garantie&nbsp;: tout placement comporte des risques, dont la perte en capital pour les supports non garantis. Cet outil ne constitue ni un conseil personnalisé, ni une offre de financement.</p>
+            <p class="res__legal" id="legal">Estimation indicative, hors assurance, carburant et fiscalité professionnelle. Les loyers, l'option d'achat et la valeur de revente dépendent du concessionnaire et du marché. Le rendement de l'épargne est une hypothèse, non garantie&nbsp;: tout placement comporte des risques, dont la perte en capital pour les supports non garantis. Cet outil ne constitue ni un conseil personnalisé, ni une offre de financement.</p>
           </div>
 
+        </div>
+
+        <!-- ---------- Détail ---------- -->
+        <div class="out">
+          <h2 class="out__title">Détail de vos <em>résultats</em></h2>
+          <div class="ocard"><div class="dscroll"><table class="dtable" id="dtable"></table></div></div>
+        </div>
+
+        <!-- ---------- Graphique ---------- -->
+        <div class="out">
+          <h2 class="out__title">Le coût réel en <em>un coup d'œil</em></h2>
+          <div class="ocard">
+            <div class="chart__legend">
+              <span><i style="background:#48691d"></i>Coût décaissé net (paiements − revente)</span>
+              <span><i style="background:#c9a74a"></i>Rendement perdu sur votre épargne</span>
+            </div>
+            <div class="chart" id="chart" role="img" aria-label="Coût réel de chaque formule de financement"></div>
+            <div class="chart__names" id="chartNames"></div>
+            <p class="chart__note">Survolez ou touchez une colonne pour voir le détail. Plus la partie dorée est haute, plus la formule immobilise d'argent qui aurait pu travailler pour vous.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -340,7 +403,7 @@
   <script src="script.js?v=4"></script>
   <script>
   (function () {
-    const IDS = ['prix','duree','revente','km','entretien','cApport','cTaux','loaLoyer','loaApport','loaOption','lldLoyer','lldApport','kmInclus','kmPrix','rdt'];
+    const IDS = ['prix','duree','revente','km','entretien','cApport','cTaux','cMens','loaLoyer','loaApport','loaOption','lldLoyer','lldApport','kmInclus','kmPrix','rdt'];
     const $ = id => document.getElementById(id);
     const num = id => Math.max(0, parseFloat(String($(id).value).replace(',', '.')) || 0);
     const eur = n => Math.round(n).toLocaleString('fr-FR') + ' €';
@@ -374,12 +437,65 @@
     }
     const pct = x => (Math.round(x * 1000) / 10).toLocaleString('fr-FR') + '&nbsp;%';
 
+    // Graphique en colonnes empilées : coût décaissé net + rendement perdu
+    const kfmt = x => x === 0 ? '0' : (x >= 1000 ? (x / 1000).toLocaleString('fr-FR') + ' k€' : Math.round(x) + ' €');
+    let chartData = [];
+    function drawChart(list, best) {
+      chartData = list;
+      const max = Math.max(...list.map(s => s.cost), 1);
+      const raw = max / 4, pw = Math.pow(10, Math.floor(Math.log10(raw))), m = raw / pw;
+      const step = (m <= 1 ? 1 : m <= 2 ? 2 : m <= 2.5 ? 2.5 : m <= 5 ? 5 : 10) * pw;
+      const top = Math.ceil(max / step) * step;
+      let grid = '';
+      for (let t = 0; t <= top + 1e-6; t += step) {
+        grid += '<div class="chart__grid' + (t === 0 ? ' chart__grid--zero' : '') + '" style="bottom:' + (t / top * 100) + '%"><span>' + kfmt(t) + '</span></div>';
+      }
+      const compact = $('chart').clientWidth < 420;
+      const lab = x => compact ? (x / 1000).toLocaleString('fr-FR', { maximumFractionDigits: 1 }) + ' k€' : eur(x);
+      const cols = list.map((s, k) => {
+        const cash = Math.max(0, s.decaisse), lost = Math.max(0, s.cost - s.decaisse);
+        const h = Math.max(0, cash + lost) / top * 100;
+        return '<div class="chart__col" data-k="' + k + '" tabindex="0" aria-label="' + s.name + ' : ' + eur(s.cost) + '">' +
+          '<div class="chart__stack" style="height:' + h + '%">' +
+            '<span class="chart__val">' + (s === best ? '<em>MOINS CHER</em>' : '') + lab(s.cost) + '</span>' +
+            (lost > 0.5 ? '<i class="chart__seg chart__seg--lost" style="flex:' + lost + ' 1 0"></i>' : '') +
+            (cash > 0.5 ? '<i class="chart__seg chart__seg--cash" style="flex:' + cash + ' 1 0"></i>' : '') +
+          '</div></div>';
+      }).join('');
+      $('chart').innerHTML = grid + '<div class="chart__cols">' + cols + '</div><div class="chart__tip" id="tip"></div>';
+      $('chartNames').innerHTML = list.map(s => '<div>' + s.name + '<small>' + s.statut + '</small></div>').join('');
+    }
+    function showTip(col) {
+      const tip = $('tip'), s = chartData[+col.dataset.k];
+      if (!tip || !s) return;
+      document.querySelectorAll('.chart__col.is-active').forEach(c => c.classList.remove('is-active'));
+      col.classList.add('is-active');
+      tip.innerHTML = '<b>' + s.name + '</b>' +
+        '<span><span><i style="background:#48691d"></i>Coût décaissé net</span>' + eur(s.decaisse) + '</span>' +
+        '<span><span><i style="background:#c9a74a"></i>Rendement perdu</span>' + eur(s.cost - s.decaisse) + '</span>' +
+        '<span style="border-top:1px solid rgba(255,255,255,.15);margin-top:4px;padding-top:4px"><span>Coût réel</span><strong>' + eur(s.cost) + '</strong></span>';
+      const chart = $('chart'), cr = chart.getBoundingClientRect(), st = col.querySelector('.chart__stack').getBoundingClientRect();
+      const w = tip.offsetWidth, right = st.right - cr.left + 10;
+      tip.style.left = (right + w <= cr.width ? right : st.left - cr.left - 10 - w) + 'px';
+      tip.style.top = Math.min(Math.max(st.top - cr.top + st.height / 2, 50), cr.height - 50) + 'px';
+      tip.classList.add('is-on');
+    }
+    function hideTip() {
+      const tip = $('tip'); if (tip) tip.classList.remove('is-on');
+      document.querySelectorAll('.chart__col.is-active').forEach(c => c.classList.remove('is-active'));
+    }
+    $('chart').addEventListener('mouseover', e => { const c = e.target.closest('.chart__col'); if (c) showTip(c); });
+    $('chart').addEventListener('mouseleave', hideTip);
+    $('chart').addEventListener('click', e => { const c = e.target.closest('.chart__col'); if (c) showTip(c); });
+    $('chart').addEventListener('focusin', e => { const c = e.target.closest('.chart__col'); if (c) showTip(c); });
+    $('chart').addEventListener('focusout', hideTip);
+
     function calc() {
       const prix = num('prix'), n = Math.max(1, Math.round(num('duree')));
       if (prix <= 0) {
         $('bestCost').textContent = '·';
         $('bestSub').textContent = 'Indiquez le prix du véhicule pour lancer la comparaison.';
-        ['rows', 'insights', 'dtable'].forEach(id => $(id).innerHTML = '');
+        ['stable', 'insights', 'dtable', 'chart', 'chartNames'].forEach(id => $(id).innerHTML = '');
         return;
       }
       const revente = Math.min(num('revente'), prix);
@@ -388,29 +504,36 @@
       const kmTrop = Math.max(0, num('km') - num('kmInclus')) * (n / 12) * num('kmPrix');
       const g = { capital: prix, n, i, revente };
 
-      // TAEG → taux mensuel actuariel
-      const tauxC = num('cTaux') / 100, tc = Math.pow(1 + tauxC, 1 / 12) - 1;
+      // TAEG → taux mensuel actuariel, ou taux recalculé depuis une mensualité proposée
       const cApport = Math.min(num('cApport'), prix), emprunt = prix - cApport;
-      const mensualite = emprunt <= 0 ? 0 : tc === 0 ? emprunt / n : emprunt * tc / (1 - Math.pow(1 + tc, -n));
+      const cMens = num('cMens');
+      const tiMens = cMens > 0 && emprunt > 0 ? tauxImplicite(emprunt, cMens, n, 0) : null;
+      const tauxMens = tiMens !== null && tiMens >= 0 ? tiMens : null;
+      const tauxC = tauxMens !== null ? tauxMens : num('cTaux') / 100, tc = Math.pow(1 + tauxC, 1 / 12) - 1;
+      const mensualite = emprunt <= 0 ? 0 : tauxMens !== null ? cMens : tc === 0 ? emprunt / n : emprunt * tc / (1 - Math.pow(1 + tc, -n));
       const interets = mensualite * n - emprunt;
+      $('cTauxFld').style.opacity = tauxMens !== null ? .45 : 1;
+      $('cMensHint').innerHTML = tauxMens !== null
+        ? 'Taux réel recalculé à partir de votre mensualité&nbsp;: <strong style="color:var(--ink)">' + pct(tauxC) + '</strong>.'
+        : cMens > 0 ? 'Mensualité incohérente avec le montant emprunté&nbsp;: le taux saisi est utilisé.' : 'Si vous l\'indiquez, le taux réel est recalculé à partir de la mensualité.';
 
       const list = [
-        scenario({ key: 'comptant', name: 'Achat comptant', initial: prix, pay: 0, ent, opt: 0, km: 0, proprio: true,
+        scenario({ key: 'comptant', name: 'Achat comptant', statut: 'Propriétaire', initial: prix, pay: 0, ent, opt: 0, km: 0, proprio: true,
           meta: 'Propriétaire · ' + eur(prix) + ' payés le jour J' }, g),
-        scenario({ key: 'credit', name: 'Crédit auto', initial: cApport, pay: mensualite, ent, opt: 0, km: 0, proprio: true,
+        scenario({ key: 'credit', name: 'Crédit auto', statut: 'Propriétaire', initial: cApport, pay: mensualite, ent, opt: 0, km: 0, proprio: true,
           meta: 'Propriétaire · ' + eur(mensualite) + ' / mois · ' + eur(interets) + ' d\'intérêts' }, g)
       ];
       const loaL = num('loaLoyer'), loaA = num('loaApport'), loaO = num('loaOption');
       if (loaL > 0) {
-        list.push(scenario({ key: 'loaRachat', name: 'LOA avec rachat', initial: loaA, pay: loaL, ent, opt: loaO, km: 0, proprio: true,
+        list.push(scenario({ key: 'loaRachat', name: 'LOA avec rachat', statut: 'Propriétaire à la fin', initial: loaA, pay: loaL, ent, opt: loaO, km: 0, proprio: true,
           meta: 'Propriétaire à la fin · ' + eur(loaL) + ' / mois · rachat ' + eur(loaO) }, g));
-        list.push(scenario({ key: 'loa', name: 'LOA sans rachat', initial: loaA, pay: loaL, ent, opt: 0, km: kmTrop, proprio: false,
+        list.push(scenario({ key: 'loa', name: 'LOA sans rachat', statut: 'Restitution', initial: loaA, pay: loaL, ent, opt: 0, km: kmTrop, proprio: false,
           meta: 'Restitution · ' + eur(loaL) + ' / mois' + (kmTrop ? ' · ' + eur(kmTrop) + ' de km en trop' : '') }, g));
       }
       const lldL = num('lldLoyer');
       if (lldL > 0) {
         const inclus = $('lldEntretien').checked;
-        list.push(scenario({ key: 'lld', name: 'LLD', initial: num('lldApport'), pay: lldL, ent: inclus ? 0 : ent, opt: 0, km: kmTrop, proprio: false,
+        list.push(scenario({ key: 'lld', name: 'LLD', statut: 'Restitution', initial: num('lldApport'), pay: lldL, ent: inclus ? 0 : ent, opt: 0, km: kmTrop, proprio: false,
           meta: 'Restitution · ' + eur(lldL) + ' / mois' + (inclus ? ' · entretien inclus' : '') + (kmTrop ? ' · ' + eur(kmTrop) + ' de km en trop' : '') }, g));
       }
 
@@ -420,13 +543,14 @@
       $('bestSub').innerHTML = '<strong>' + best.name + '</strong>, soit ' + eur(best.cost / n) + ' par mois sur ' + n + ' mois';
       $('mbarName').textContent = 'Le moins cher : ' + best.name;
       $('mbarCost').textContent = eur(best.cost);
-      $('rows').innerHTML = list.map((s, k) =>
-        '<div class="row' + (k === 0 ? ' row--best' : '') + '">' +
-          '<div class="row__top"><span class="row__name">' + s.name + (k === 0 ? '<span class="row__tag">MOINS CHER</span>' : '') + '</span>' +
-          '<span class="row__val">' + eur(s.cost) + (k ? ' <span style="color:#9aa0a6;font-weight:500">(+' + eur(s.cost - best.cost) + ')</span>' : '') + '</span></div>' +
-          '<div class="row__meta">' + s.meta + '</div>' +
-          '<div class="row__bar"><i style="width:' + Math.max(4, s.cost / max * 100) + '%"></i></div>' +
-        '</div>').join('');
+      $('stable').innerHTML =
+        '<div class="stable__head"><span>Formule</span><span>Coût réel</span><span>Mensualité</span></div>' +
+        list.map((s, k) =>
+          '<div class="stable__row' + (k === 0 ? ' stable__row--best' : '') + '">' +
+            '<span class="stable__name">' + s.name + (k === 0 ? '<span class="stable__tag">MOINS CHER</span>' : '') + '<span class="stable__meta">' + s.statut + '</span></span>' +
+            '<span class="stable__num">' + eur(s.cost) + (k ? '<small>+' + eur(s.cost - best.cost) + '</small>' : '') + '</span>' +
+            '<span class="stable__num">' + eur(s.pay) + '</span>' +
+          '</div>').join('');
 
       // Enseignements
       const tips = [];
@@ -461,20 +585,26 @@
       $('insights').innerHTML = tips.join('');
 
       // Détail du calcul
-      const line = (label, f, cls) => '<tr' + (cls ? ' class="' + cls + '"' : '') + '><td>' + label + '</td>' + list.map(s => '<td>' + f(s) + '</td>').join('') + '</tr>';
+      const worst = list[list.length - 1];
+      const tdc = (s, html) => '<td' + (s === best ? ' class="is-best"' : s === worst && list.length > 1 ? ' class="is-worst"' : '') + '>' + html + '</td>';
+      const line = (label, f, cls, mark) => '<tr' + (cls ? ' class="' + cls + '"' : '') + '><td>' + label + '</td>' + list.map(s => mark ? tdc(s, f(s)) : '<td>' + f(s) + '</td>').join('') + '</tr>';
       const v = x => x ? eur(x) : '·';
       $('dtable').innerHTML =
-        '<thead><tr><th></th>' + list.map(s => '<th>' + s.name + '</th>').join('') + '</tr></thead><tbody>' +
+        '<thead><tr><th>Formule</th>' + list.map(s => '<th>' + s.name + '<small>' + s.statut + '</small></th>').join('') + '</tr></thead><tbody>' +
         line('Apport / paiement initial', s => v(s.initial)) +
-        line('Mensualités ou loyers', s => v(s.pay * n)) +
+        line('Mensualité ou loyer', s => v(s.pay)) +
+        line('Total des mensualités ou loyers', s => v(s.pay * n)) +
         (loaR ? line('Rachat en fin de contrat', s => v(s.opt)) : '') +
         (list.some(s => s.km) ? line('Kilomètres en trop', s => v(s.km)) : '') +
-        line('Entretien', s => v(s.ent * n)) +
+        line('Entretien sur ' + n + ' mois', s => v(s.ent * n)) +
         line('Valeur de revente', s => s.resale ? '−' + eur(s.resale) : '·') +
         line('Coût décaissé net', s => eur(s.decaisse), 'sub') +
-        line('Rendement perdu sur l\'épargne', s => '+' + eur(s.cost - s.decaisse), 'sub') +
-        line('Coût réel', s => eur(s.cost), 'total') +
+        line('Rendement perdu sur l\'épargne (' + pct(r) + ')', s => '+' + eur(s.cost - s.decaisse), 'sub') +
+        line('Coût réel', s => eur(s.cost), 'total', true) +
+        line('Coût réel par mois', s => eur(s.cost / n), 'permonth', true) +
         '</tbody>';
+
+      drawChart(list, best);
 
       // Lien partageable
       const p = new URLSearchParams();
@@ -492,6 +622,7 @@
     };
     addEventListener('scroll', syncBar, { passive: true });
     addEventListener('resize', syncBar);
+    let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => chartData.length && drawChart(chartData, chartData[0]), 150); });
     syncBar();
     mbar.addEventListener('click', ev => { ev.preventDefault(); resEl.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
     $('share').addEventListener('click', () => {
@@ -499,8 +630,7 @@
       if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(done, () => prompt('Copiez ce lien :', location.href));
       else prompt('Copiez ce lien :', location.href);
     });
-    $('print').addEventListener('click', () => { $('detail').open = true; window.print(); });
-    addEventListener('beforeprint', () => { $('detail').open = true; });
+    $('print').addEventListener('click', () => window.print());
     calc();
   })();
   </script>
